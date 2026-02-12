@@ -1,3 +1,4 @@
+html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,8 +22,129 @@
             overflow: hidden;
         }
         header {
-            backgroun…
- bash
+            background: #075e54;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .dashboard {
+            display: flex;
+            min-height: 600px;
+        }
+        .chat-container {
+            flex: 1;
+            border-right: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+        }
+        .agents-panel {
+            width: 350px;
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 1px solid #eee;
+        }
+        .chat-header {
+            background: #128c7e;
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            height: 400px;
+            background: #e5ddd5;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        .received {
+            background: white;
+            margin-right: auto;
+            border-bottom-left-radius: 2px;
+        }
+        .sent {
+            background: #dcf8c6;
+            margin-left: auto;
+            border-bottom-right-radius: 2px;
+        }
+        .input-area {
+            display: flex;
+            padding: 15px;
+            background: #f0f2f5;
+        }
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+        }
+        button {
+            margin-left: 10px;
+            padding: 12px 20px;
+            background: #25d366;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        .agent-card {
+            background: white;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #075e54;
+        }
+        .agent-status {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .active {
+            background: #25d366;
+        }
+        .inactive {
+            background: #ccc;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .controls {
+            padding: 20px;
+            text-align: center;
+            background: #f8f9fa;
+        }
+        .classification-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            color: white;
+            margin-top: 5px;
+        }
+        .venta { background: #3498db; }
+html
        .soporte { background: #e74c3c; }
         .informacion { background: #2ecc71; }
         .reclamo { background: #f39c12; }
@@ -44,8 +166,70 @@
         <div class="stats">
             <div class="stat-card">
                 <h3>Clientes Atendidos</h3>
-  …
- bash
+                <p id="clientes-count">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Conversaciones Hoy</h3>
+                <p id="conversations-count">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Nivel de Satisfacción</h3>
+                <p id="satisfaction-rate">0%</p>
+            </div>
+            <div class="stat-card">
+                <h3>Seguimientos Pendientes</h3>
+                <p id="followups-count">0</p>
+            </div>
+        </div>
+        
+        <div class="dashboard">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div style="margin-right: 10px;">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFFFFF' width='40' height='40'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z'/%3E%3C/svg%3E" alt="Cliente" style="width: 40px; height: 40px; border-radius: 50%;">
+                    </div>
+                    <div>
+                        <h3>Cliente Demo</h3>
+                        <small>+54 9 11 2345-6789</small>
+                    </div>
+                </div>
+                
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message received">
+                        Hola, ¿tienen el Producto A disponible?
+                        <div class="classification-badge venta">Venta</div>
+                    </div>
+                    <div class="message sent">
+                        ¡Genial que te interese! Actualmente tenemos 3 productos destacados: Producto A, Producto B, Producto C. ¿Sobre cuál querés más información?
+                        <div class="classification-badge informacion">Información</div>
+                    </div>
+                </div>
+                
+                <div class="input-area">
+                    <input type="text" id="message-input" placeholder="Escribe un mensaje...">
+                    <button onclick="sendMessage()">Enviar</button>
+                </div>
+            </div>
+            
+            <div class="agents-panel">
+                <h2>Agentes del Sistema</h2>
+                
+                <div class="agent-card">
+                    <div>
+                        <span class="agent-status active"></span>
+                        <strong>Agente de Recepción</strong>
+                    </div>
+                    <p>Detecta y registra mensajes entrantes</p>
+                    <small>Estado: Activo</small>
+                </div>
+                
+                <div class="agent-card">
+                    <div>
+                        <span class="agent-status active"></span>
+                        <strong>Agente de Clasificación</strong>
+                    </div>
+                    <p>Categoriza consultas y determina urgencia</p>
+html
                    <small>Estado: Procesando...</small>
                 </div>
                 
@@ -64,8 +248,79 @@
                         <strong>Agente de Seguimiento</strong>
                     </div>
                     <p>Programa recordatorios y seguimientos</p>
-  …
- bash
+                    <small>Estado: Programando</small>
+                    <div class="classification-badge follow-up">Seguimiento</div>
+                </div>
+                
+                <div class="agent-card">
+                    <div>
+                        <span class="agent-status inactive"></span>
+                        <strong>Agente de Escalación</strong>
+                    </div>
+                    <p>Deriva casos complejos a humanos</p>
+                    <small>Estado: En espera</small>
+                </div>
+                
+                <h3>Actividad Reciente</h3>
+                <div id="activity-log" style="background: white; padding: 10px; border-radius: 5px; height: 200px; overflow-y: auto;">
+                    <div>[12:00] Nuevo mensaje recibido de cliente</div>
+                    <div>[12:01] Mensaje clasificado como 'Venta'</div>
+                    <div>[12:01] Respuesta generada automáticamente</div>
+                    <div>[12:02] Seguimiento programado para cliente</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button onclick="simulateConversation()" style="background: #075e54; margin-right: 10px;">Simular Conversación</button>
+            <button onclick="resetDemo()" style="background: #e74c3c;">Reiniciar Demo</button>
+        </div>
+    </div>
+
+    <script>
+        let clientesCount = 1;
+        let conversationsCount = 2;
+        let satisfactionRate = 95;
+        let followupsCount = 3;
+        
+        // Actualizar contadores
+        document.getElementById('clientes-count').textContent = clientesCount;
+        document.getElementById('conversations-count').textContent = conversationsCount;
+        document.getElementById('satisfaction-rate').textContent = satisfactionRate + '%';
+        document.getElementById('followups-count').textContent = followupsCount;
+        
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+            
+            if (message) {
+                // Agregar mensaje del usuario
+                const chatMessages = document.getElementById('chat-messages');
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message received';
+                messageDiv.innerHTML = message;
+                
+                // Clasificar mensaje
+                const category = classifyMessage(message);
+                const badge = document.createElement('div');
+                badge.className = 'classification-badge ' + category;
+                badge.textContent = getCategoryLabel(category);
+                messageDiv.appendChild(badge);
+                
+                chatMessages.appendChild(messageDiv);
+                
+                // Simular procesamiento
+                simulateProcessing(message);
+                
+                input.value = '';
+                
+                // Auto-scroll al final
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+        
+        function classifyMessage(message) {
+html
            const msg = message.toLowerCase();
             
             if (msg.includes('comprar') || msg.includes('producto') || msg.includes('precio') || msg.includes('catalogo')) {
@@ -81,8 +336,66 @@
             }
         }
         
-        function g…
- bash
+        function getCategoryLabel(category) {
+            const labels = {
+                'venta': 'Venta',
+                'soporte': 'Soporte',
+                'informacion': 'Info',
+                'reclamo': 'Reclamo',
+                'otros': 'Otros'
+            };
+            return labels[category];
+        }
+        
+        function simulateProcessing(message) {
+            // Simular actividad de agentes
+            const activityLog = document.getElementById('activity-log');
+            activityLog.innerHTML += '<div>[' + getCurrentTime() + '] Nuevo mensaje recibido</div>';
+            activityLog.innerHTML += '<div>[' + getCurrentTime() + '] Clasificando mensaje...</div>';
+            
+            // Simular tiempo de procesamiento
+            setTimeout(() => {
+                const category = classifyMessage(message);
+                
+                if (category === 'reclamo' || message.toLowerCase().includes('urgente')) {
+                    // Escalación a humano
+                    activityLog.innerHTML += '<div>[' + getCurrentTime() + '] Escalando a agente humano</div>';
+                    
+                    const chatMessages = document.getElementById('chat-messages');
+                    const escalationMsg = document.createElement('div');
+                    escalationMsg.className = 'message sent';
+                    escalationMsg.innerHTML = 'Tu consulta es importante y será atendida por un agente humano en breve.';
+                    const badge = document.createElement('div');
+                    badge.className = 'classification-badge escalation';
+                    badge.textContent = 'Escalado';
+                    escalationMsg.appendChild(badge);
+                    chatMessages.appendChild(escalationMsg);
+                    
+                    // Actualizar contador de seguimientos
+                    followupsCount++;
+                    document.getElementById('followups-count').textContent = followupsCount;
+                } else {
+                    // Respuesta automática
+                    activityLog.innerHTML += '<div>[' + getCurrentTime() + '] Generando respuesta...</div>';
+                    
+                    const chatMessages = document.getElementById('chat-messages');
+                    const responseMsg = document.createElement('div');
+                    responseMsg.className = 'message sent';
+                    
+                    // Generar respuesta según categoría
+                    let response = '';
+                    switch(category) {
+                        case 'venta':
+                            response = '¡Gracias por tu interés! ¿Sobre qué producto te gustaría más información?';
+                            break;
+                        case 'soporte':
+                            response = 'Lamento que tengas inconvenientes. ¿Podrías describirme con más detalle el problema?';
+                            break;
+                        case 'informacion':
+                            response = '¡Encantado de ayudarte! ¿Qué información específica necesitas?';
+                            break;
+                        case 'reclamo':
+html
                            response = 'Lamento tu experiencia. ¿Podrías contarme más detalles para resolverlo?';
                             break;
                         default:
@@ -150,4 +463,3 @@
     </script>
 </body>
 </html>
-EOF
