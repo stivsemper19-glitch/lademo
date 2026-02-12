@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Sistema de Atención por WhatsApp</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        header {
+            backgroun…
+ bash
+       .soporte { background: #e74c3c; }
+        .informacion { background: #2ecc71; }
+        .reclamo { background: #f39c12; }
+        .otros { background: #9b59b6; }
+        .urgency-high { background: #e74c3c; }
+        .urgency-normal { background: #3498db; }
+        .urgency-low { background: #2ecc71; }
+        .follow-up { background: #9b59b6; }
+        .escalation { background: #e74c3c; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sistema de Atención y Seguimiento de Clientes vía WhatsApp</h1>
+            <p>Prototipo basado en CrewAI - Demostración Interactiva</p>
+        </header>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Clientes Atendidos</h3>
+  …
+ bash
+                   <small>Estado: Procesando...</small>
+                </div>
+                
+                <div class="agent-card">
+                    <div>
+                        <span class="agent-status active"></span>
+                        <strong>Agente de Respuesta</strong>
+                    </div>
+                    <p>Genera respuestas personalizadas</p>
+                    <small>Estado: Respondiendo</small>
+                </div>
+                
+                <div class="agent-card">
+                    <div>
+                        <span class="agent-status active"></span>
+                        <strong>Agente de Seguimiento</strong>
+                    </div>
+                    <p>Programa recordatorios y seguimientos</p>
+  …
+ bash
+           const msg = message.toLowerCase();
+            
+            if (msg.includes('comprar') || msg.includes('producto') || msg.includes('precio') || msg.includes('catalogo')) {
+                return 'venta';
+            } else if (msg.includes('problema') || msg.includes('falla') || msg.includes('ayuda')) {
+                return 'soporte';
+            } else if (msg.includes('horario') || msg.includes('direccion') || msg.includes('envio') || msg.includes('garantia')) {
+                return 'informacion';
+            } else if (msg.includes('malo') || msg.includes('defectuoso') || msg.includes('reclamo')) {
+                return 'reclamo';
+            } else {
+                return 'otros';
+            }
+        }
+        
+        function g…
+ bash
+                           response = 'Lamento tu experiencia. ¿Podrías contarme más detalles para resolverlo?';
+                            break;
+                        default:
+                            response = 'Gracias por tu mensaje. Estoy procesando tu solicitud.';
+                    }
+                    
+                    responseMsg.textContent = response;
+                    const badge = document.createElement('div');
+                    badge.className = 'classification-badge informacion';
+                    badge.textContent = 'Respuesta';
+                    responseMsg.appendChild(badge);
+                    chatMessages.appendChild(responseMsg);
+                    
+                    // Programar seguimiento
+                    activityLog.innerHTML += '<div>[' + getCurrentTime() + '] Seguimiento programado</div>';
+                    
+                    // Actualizar contador de conversaciones
+                    conversationsCount++;
+                    document.getElementById('conversations-count').textContent = conversationsCount;
+                }
+                
+                // Auto-scroll al final
+                activityLog.scrollTop = activityLog.scrollHeight;
+                document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+            }, 1500);
+        }
+        
+        function simulateConversation() {
+            const sampleMessages = [
+                "Hola, quiero comprar el Producto A",
+                "Tengo un problema con mi pedido",
+                "¿Cuáles son sus horarios?",
+                "El producto llegó defectuoso",
+                "Urgente: necesito resolver esto ya",
+                "Gracias por la información"
+            ];
+            
+            const message = sampleMessages[Math.floor(Math.random() * sampleMessages.length)];
+            document.getElementById('message-input').value = message;
+            sendMessage();
+        }
+        
+        function resetDemo() {
+            document.getElementById('chat-messages').innerHTML = '';
+            document.getElementById('activity-log').innerHTML = '<div>[' + getCurrentTime() + '] Demo reiniciado</div>';
+            clientesCount = 0;
+            conversationsCount = 0;
+            followupsCount = 0;
+            document.getElementById('clientes-count').textContent = clientesCount;
+            document.getElementById('conversations-count').textContent = conversationsCount;
+            document.getElementById('followups-count').textContent = followupsCount;
+        }
+        
+        function getCurrentTime() {
+            const now = new Date();
+            return now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+        }
+        
+        // Permitir enviar con Enter
+        document.getElementById('message-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
+EOF
